@@ -3,6 +3,7 @@ Spirala 1
 *********
 
 I
+
 Uradeno je: 
 -skica pod a) za svaku od podstranica(ukupno 8)
 -sve stranice su responzivne i imaju grid-view izgled(pogledati Screenshot folder)
@@ -10,13 +11,18 @@ Uradeno je:
 -postoje 3 html forme(contact, register, login)
 -implementiran meni koji je vidljiv na svim stranicama
 -izgled stranice konzistentan, ne mijenja se raspored elemenata proširivanjem ili sužavanjem okvira stranice
+
 II
 -
+
 III
+
 -dosad nisam primjetio bug-ove 
 IV
+
 -
 V
+
 -index.html pocetna stranica koja sadrži meni, iducu utakmicu koja je smještena u dvije kolone, u prvoj se 
 nalazi slika, a u drugoj naslov, podnaslov i tekst
 -contact.html  forma za kontakt(poruka, e-mail, ime,prezime)
