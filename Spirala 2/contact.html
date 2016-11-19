@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Arsenal FC</title>
+    <meta charset=utf-8>
+	<link rel="stylesheet" type="text/css" href="style/contact.css">
+  </head>
+
+  <body>
+     <form class="contact_form" action="#" method="post" name="contact_form">
+  		<ul>
+		    <li>
+		    	<label>First name:</label>
+		    	<input type="text" name="first-name" id="first-name" onkeyup="validationNameContact()" required>
+		    </li>
+		    <li>
+		    	<label>Last name:</label>
+		    	<input type="text" name="late-name" id="last-name" onkeyup="validationLastNameContact()" required>
+		    </li>
+		    <li>
+		    	<label>Email:</label>
+		    	<input type="text" name="email" id="email" onkeyup="validationEmailContact()" required>
+		    </li>
+		    <li>
+		    	<label>Message:</label>
+		    	<textarea name="message" id="message" cols="35" rows="10" required></textarea>
+		    </li>
+		    <li>
+		    	<button class="submit" type="submit" id="submitContact" onmouseenter="smjestiUStorageKontakt()">Send message</button>
+		    </li>
+		</ul>
+
+	</form>
+	<SCRIPT src = "hambutton.js" ></SCRIPT>
+  </body>
+</html>
