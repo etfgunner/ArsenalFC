@@ -8,7 +8,7 @@
   </head>
 
   <body>
-  <<div class="header">
+  <div class="header">
 			<div class="logo"></div>
 			<div class="main_menu">
               <ul class="topmenu" id="menu">
