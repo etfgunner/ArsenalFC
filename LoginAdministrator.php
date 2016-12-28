@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <?php
+	if(isset($_GET['staviUCSV'])){
+	$fp = fopen('LoginPodaci.csv', 'w');
+	$files=glob('users/*.xml');
+	var_dump($files);
+	foreach($files as $file){
+		$xml=new SimpleXMLElement($file,0,true);
+		$filer =array($xml->username,$xml->password);
+			fputcsv($fp, $filer);
+	}
+		fclose($fp);
+		//header("Location: http://localhost:50/spiralatri/LoginPodaci.csv");
+		$url = 'http://' . $_SERVER['HTTP_HOST'];            // Get the server
+		$url .= rtrim(dirname($_SERVER['PHP_SELF']), '/\\'); // Get the current directory
+		$url .= '/LoginPodaci.csv';            // <-- Your relative path
+		header('Location: ' . $url, true, 302); 
+		die();
+	}
+?>
+<?php
 session_start();
 if(isset($_SESSION['username']))
 	$logined=true;
@@ -57,25 +76,6 @@ $staviUCSV=false;
 	}
 	?>
 	</table>
-	<?php
-	if(isset($_GET['staviUCSV'])){
-	$fp = fopen('LoginPodaci.csv', 'w');
-	$files=glob('users/*.xml');
-	var_dump($files);
-	foreach($files as $file){
-		$xml=new SimpleXMLElement($file,0,true);
-		$filer =array($xml->username,$xml->password);
-			fputcsv($fp, $filer);
-	}
-		fclose($fp);
-		//header("Location: http://localhost:50/spiralatri/LoginPodaci.csv");
-		$url = 'http://' . $_SERVER['HTTP_HOST'];            // Get the server
-		$url .= rtrim(dirname($_SERVER['PHP_SELF']), '/\\'); // Get the current directory
-		$url .= '/LoginPodaci.csv';            // <-- Your relative path
-		header('Location: ' . $url, true, 302); 
-		die();
-	}
-?>
 	<p><a href="LoginAdministrator.php?staviUCSV=true" style="background-color:white">Klikni za kreiranje i preuzimanje CSV fajla</a></p>
 	<p><a href="FPDFDownload.php" style="background-color:white">Klikni za kreiranje izvještaja u PDF-u</a></p>
 	<a href="changePassword.php" style="background-color:white">Change password</a>
