@@ -45,17 +45,14 @@ $output='';
 	}
 	</script>
 	<script type="text/javascript">
-	function reloaduj(){
+	function prikaziSve(){
 		var searchTxt = $("input[name='search']").val();
-			if(searchTxt.length==0)
-			{
-				var data = <?php echo json_encode($output); ?>;
-				if(data.length!=0)
-					location.reload();
-				
-			}
-				
+	$.post("pretrazi1.php",{searchVal: searchTxt},function(output){
+		$("#output").html(output);
 	}
+	);
+	}
+	</script>
 	</script>
   <div class="header">
 			<div class="logo"></div>
@@ -76,10 +73,9 @@ $output='';
 				
 	</div>
     <form action="search.php" method="post" >
-	<input type="text" name="search" onkeyup="searchq();" onclick="reloaduj();">
-	<input type="submit" name="submitSearch" value="&gt;&gt;">
+	<input type="text" name="search" onkeyup="searchq();" ;">
+	<input type="button" name="submitSearch" value="&gt;&gt;" onclick="prikaziSve();">
 		</form>
-		<?php print($output); ?>
 		<div id="output">
 		</div>
 	<SCRIPT src = "hambutton.js" ></SCRIPT>
