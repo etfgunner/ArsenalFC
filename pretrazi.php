@@ -22,8 +22,9 @@ $output='';
 		elseif(strpos(strtolower($fname), strtolower($pretraga))!==false || strpos(strtolower($lname),strtolower($pretraga))!==false || strpos(strtolower($fullName),strtolower($pretraga))!==false)
 		{
 			$output.='<div>'.$fname.' '.$lname.'<div>';
+			$brojac=$brojac+1;
 		}
-		$brojac=$brojac+1;
+		
 	}
 }
 echo $output;
