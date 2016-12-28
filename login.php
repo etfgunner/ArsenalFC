@@ -19,7 +19,7 @@ $error =false;
 	}
 	
 	
-	if($passError=='' && $usernameError=='')
+	if($passError=='' && $nameError=='')
 	{
 			
 				if(file_exists('users/' . $username . '.xml')){
