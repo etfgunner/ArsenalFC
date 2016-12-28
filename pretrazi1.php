@@ -6,9 +6,7 @@ $output='';
 		//ovo dodaje u autput u vajl
 		//ovo vadi sve registrovane
 		$files=glob('registration/*.xml');
-		$brojac=1;
 	foreach($files as $file){
-		if($brojac>10) break;
 		$xml=new SimpleXMLElement($file,0,true);
 		$fname=$xml->first_name;
 		$lname=$xml->last_name;
@@ -23,7 +21,6 @@ $output='';
 		{
 			$output.='<div>'.$fname.' '.$lname.'<div>';
 		}
-		$brojac=$brojac+1;
 	}
 }
 echo $output;

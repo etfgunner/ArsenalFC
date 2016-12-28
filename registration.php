@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 if(isset($_POST['login'])){
 $username =preg_replace('/[^A-Za-z]/','',$_POST['username1']);
 $email=htmlEntities($_POST['email1'], ENT_QUOTES);
@@ -41,11 +41,11 @@ $passError='';
 		$passError='Password mora imati makar jedan broj';
 		}
 	if(!$password==$c_password) {$passEqual='Sifre se ne podudaraju';}
-	if (filter_var($email, FILTER_VALIDATE_EMAIL))
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 		{
 		$emailError = 'E-mail treba biti u formatu ime@provajder.domena';
 		} 
-if($bezGreske && $nameError=='' && $firstNameError=='' && $lastNameError=='' && $passEqual=='' && $passError=='' ){
+if($bezGreske && $nameError=='' && $firstNameError=='' && $lastNameError=='' && $passEqual=='' && $passError=='' && $emailError==''){
 	
 	//users folder
 	$xml1= new SimpleXMLElement('<user></user>');
