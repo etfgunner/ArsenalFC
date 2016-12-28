@@ -32,3 +32,6 @@ Pretraga se vrši po imenu, prezimenu ili oboje. Nije case sensitive.
 Kod upisa izbacuje se do 10 slicnih korisnika, a u slucaju klika na submit dugme ispisuju
 se svi slicni korisnici.
 Nisam primjetio bug-ove u kodu.
+
+Openshift link:
+http://mz17053arsenal-milanzuza.44fs.preview.openshiftapps.com/
