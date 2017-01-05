@@ -2,13 +2,20 @@
 <?php
 	if(isset($_GET['staviUCSV'])){
 	$fp = fopen('LoginPodaci.csv', 'w');
-	$files=glob('users/*.xml');
-	var_dump($files);
+	/*$files=glob('users/*.xml');
 	foreach($files as $file){
 		$xml=new SimpleXMLElement($file,0,true);
 		$filer =array($xml->username,$xml->password);
 			fputcsv($fp, $filer);
+	}*/
+	//bazno rješenje
+	$dbh1= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+		$sql1 = 'SELECT username,password FROM login ORDER BY username';
+    foreach ($dbh1->query($sql1) as $row) {
+		$filer =array($row['username'],$row['password']);
+			fputcsv($fp, $filer);
 	}
+	
 		fclose($fp);
 		//header("Location: http://localhost:50/spiralatri/LoginPodaci.csv");
 		$url = 'http://' . $_SERVER['HTTP_HOST'];            // Get the server
@@ -65,6 +72,16 @@ $staviUCSV=false;
 	<th>Password</th>
 	</tr>
 	<?php
+	$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+		$sql = 'SELECT username,password FROM login ORDER BY username';
+    foreach ($dbh->query($sql) as $row) {
+		echo '
+		<tr>
+		<td>'.$row['username'].'</td>
+		<td>'.$row['password'].'</td>
+		</tr>';
+	}
+	/*
 	$files=glob('users/*.xml');
 	foreach($files as $file){
 		$xml=new SimpleXMLElement($file,0,true);
@@ -74,12 +91,15 @@ $staviUCSV=false;
 		<td>'.$xml->password.'</td>
 		</tr>';
 	}
+	*/
 	?>
 	</table>
 	<p><a href="LoginAdministrator.php?staviUCSV=true" style="background-color:white">Klikni za kreiranje i preuzimanje CSV fajla</a></p>
 	<p><a href="FPDFDownload.php" style="background-color:white">Klikni za kreiranje izvještaja u PDF-u</a></p>
 	<a href="changePassword.php" style="background-color:white">Change password</a>
 	<a href="deleteUser.php" style="background-color:white">Delete User</a>
+	<p><a href="uBazu.php" style="background-color:white">Stavi podatke iz XML-a u bazu</a></p>
+	<p><a href="JSON.php" style="background-color:white">Klikni ovdje za JSON</a></p>
 	<a href="logout.php" style="background-color:white">Logout</a>
 	<SCRIPT src = "hambutton.js" ></SCRIPT>
 	

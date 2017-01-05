@@ -38,12 +38,20 @@ $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times','',12);
-$files=glob('users/*.xml');
 $i=1;
+/*$files=glob('users/*.xml');
 	foreach($files as $file){
 		$xml=new SimpleXMLElement($file,0,true);
 		$pdf->Cell(0,10,'Korisnik broj '.$i.': '.$xml->username,0,1);
 		$i=$i+1;
+	}*/
+	//uzmi sa baze umjesto XMl-a
+	$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+		$sql = 'SELECT username,password FROM login ORDER BY username';
+    foreach ($dbh->query($sql) as $row) {
+		$pdf->Cell(0,10,'Korisnik broj '.$i.': '.$row['username'],0,1);
+		$i=$i+1;
 	}
+	
 $pdf->Output();
 ?>

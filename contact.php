@@ -3,11 +3,11 @@ $error =false;
 	if(isset($_POST['submitContact'])){
 		$first_name =$a = htmlEntities($_POST['first-name'], ENT_QUOTES);
 		$lst_name =$a = htmlEntities($_POST['last-name'], ENT_QUOTES);
-		$e_mail =$a = htmlEntities($_POST['email'], ENT_QUOTES);
+		$usrname =$a = htmlEntities($_POST['email'], ENT_QUOTES);
 		$message =$a = htmlEntities($_POST['message'], ENT_QUOTES);
 		//validacija
 		$firstNameError='';
-		$emailError='';
+		$usernameError='';
 		$lastNameError='';
 	if (!preg_match("/^[a-zA-Z0-9]+$/",$first_name)) {
 				$firstNameError = 'Samo slova i brojevi u imenu-u'; 
@@ -15,22 +15,35 @@ $error =false;
 	if (!preg_match("/^[a-zA-Z0-9]+$/",$lst_name)) {
 				$lastNameError = 'Samo slova i brojevi u prezimenu-u'; 
 			}
-	if (filter_var($e_mail, FILTER_VALIDATE_EMAIL)==false)
-{
-				$emailError = 'E-mail treba biti u formatu ime@provajder.domena';
-}
+	if (!preg_match("/^[a-zA-Z0-9]+$/",$usrname)) {
+				$usernameError = 'Samo slova i brojevi u username-u'; 
+			}
 			if($firstNameError=='' && $lastNameError=='') 
 			{
 			//ContactMessages folder
+			
 		$xml= new SimpleXMLElement('<message></message>');
 		$xml->addChild('first_name',$first_name);
 		$xml->addChild('last_name', $last_name);
-		$xml->addChild('e-mail',$e_mail);
+		$xml->addChild('usrname',$usrname);
 		$xml->addChild('message',$message);
 		$broj= rand (1,32000);
 		if(!file_exists('ContactMessages/' . $broj . '.xml')){
 			$xml->asXML('ContactMessages/'.$broj.'.xml');
 		}
+		// dodaj u bazu
+		$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+		//u bazu korisnike  
+	$stmt = $dbh->prepare("INSERT INTO poruka (username, poruka) VALUES (:name, :value)");
+	$stmt->bindParam(':name', $name);
+	$stmt->bindParam(':value', $value);
+
+	// insert one row
+	$name = $usrname;
+	$value = $message;
+	$stmt->execute();
+		
+		
 		header('Location:index.php');
 		die;
 		$error=true;
@@ -77,8 +90,8 @@ $error =false;
 		    	<input type="text" name="last-name" id="last-name" onkeyup="validationLastNameContact()" required>
 		    </li>
 		    <li>
-		    	<label>Email:</label>
-		    	<input type="text" name="email" id="email" onkeyup="validationEmailContact()" required>
+		    	<label>Username:</label>
+		    	<input type="text" name="email" id="email" onkeyup="validationNameContact()" required>
 		    </li>
 		    <li>
 		    	<label>Message:</label>

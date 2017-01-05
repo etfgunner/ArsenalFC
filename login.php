@@ -19,9 +19,23 @@ $error =false;
 	}
 	
 	
-	if($passError=='' && $usernameError=='')
+	if($passError=='' && $nameError=='')
 	{
-			
+		$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+		$upit = $dbh->prepare("SELECT password FROM login WHERE username=?");
+		$upit->bindValue(1, $username, PDO::PARAM_STR);
+		$upit->execute();
+		foreach ($upit->fetch() as $row) {
+        if($password==$row)
+		{
+			session_start();
+					$_SESSION['username']=$username;
+					header('Location:index.php');
+					die;
+		}
+    }
+		
+			/*
 				if(file_exists('users/' . $username . '.xml')){
 				$xml=new SimpleXMLElement('users/' . $username . '.xml',0,true);
 				if($password==$xml->password){
@@ -31,6 +45,7 @@ $error =false;
 					die;
 				}
 			}
+			*/
 	}
 	else
 	{

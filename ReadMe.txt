@@ -1,37 +1,19 @@
-Spirala 3
----------------
-1)
-Za serijalizaciju sam koristio sljedece forme: login, registracija,kontakt.
-Za svakog korisnika se kreira poseban xml file.
-Registracija se vrši klikom na link login/registracija te unošenjem podataka. U
-slucaju da korisnik vec postoji, može se login-ovati ako klikne na login/registrati
-link i na dnu klikne na link "Already registered? Click to login".
-Adminovi podaci su: username-admin password-Prazina1
-Nakon registracije dolazi do preusmjeravanje stranice na login, dok pri uspješnom
-loginu se vrši preusmjeravanje na index.php.
-Admin na naslovnoj stranici ima dodatne mogucnosti kreiranja .csv, .pdf fajla
-kao i promjene korisnickog imena korisnika te brisanja korisnika.
-Takoder, svaki korisnik se može logout-ovati klikom na dugme na dnu naslovnice "Logou2
-Nakon registracije, podaci se smještaju u folder registrations sa detaljima o korisniku
-i folderu users gdje se smješta korisnicko ime i šifra koja je heširana.
-Svi podaci su validirani.
-Za kodiranje odredenih karaktera sam koristio htmlEntities kao na vježbama što je radeno.
-Kontakt informacije se smještaju u folder ContactMessages pri cemu se svakoj poruci dodjeljuje jedinstveni broj.
-2)
-Nakon što se admin loguje, preusmjerava se na index.php gdje može klikom na
-"klikni za detalje o korisnicima" vidjeti sve korisnike te skinuti podatke o njima
-klikom na dugme klikni za kreiranje CSV-a. u CSV fajl se smješta korisnicko ime i šifra
-svakog od korisnika.
-3)
-Kao i u zadatku 2, odmah pored linka za kreiranje CSV-a se nalazi link za kreiranje PDF fajla
-Ovaj pdf prikazuje redni broj korisnika(sortiran abecedno po korisnickom nazivu) i korisnicko ime.
-4)
-Na naslovnoj stranici se nalazi link "Search" koji otvara novu podstranicu.
-Svi korisnici, logovani ili ne mogu pretražiti cijelu bazu registrovanih.
-Pretraga se vrši po imenu, prezimenu ili oboje. Nije case sensitive.
-Kod upisa izbacuje se do 10 slicnih korisnika, a u slucaju klika na submit dugme ispisuju
-se svi slicni korisnici.
-Nisam primjetio bug-ove u kodu.
-
+Spirala 4
+a)Dodano je sljedece:
+-baza pod nazivom spirala 4, nalazi se u projektu
+-tabela registracija, koja sadrži username kao PK te ostale uobicajne atribute
+-tabela poruka, koja sadrži id poruke PK, username kao FK na username(tabela registracija)
+-tabela login, koja sadrži  username kao FK na tabelu registracija(username) te heširanu šifru
+b)
+Kad se admin loguje(admin, Prazina1), prebaci se na adminov home page. Klikom na click here to see login details ulazi u stranicu sa opcijama.
+Tu se nalazi i dugme, koji prebacuje sve podatke iz xml-a u bazu. Prebacuju se podaci iz foldera users, registracija i ContactMessages.
+Ovo prebacivanje nema neku svrhu, osim prvog puta kad se iskoristi(npr. svi podaci cuvani u xml-u pa je nakon prebacivanja na bazu došlo do potrebe
+transfera podataka u bazu)
+c)Prepravio(mjesta prepravke sadrže i originalni kod koji je zakomentarisan).
+d)
 Openshift link:
 http://mz17053arsenal-milanzuza.44fs.preview.openshiftapps.com/
+e)Ovo može samo admin(nigdje ne piše ko smije ovo uraditi pa sam stavio samo za admina).
+Kad ude na link click here to see login details, ima link pod nazivom 'Klikni za kreiranje JSON-a' u kojem se nalazi text field i submit.
+U textbox se ubaci neki string koji se kasnije pretražuje u svim korisnickim imenima i vraca u JSON-u. Da bi se vidjelo i u browseru koji je rezultat, nisam automatski vracao pocetnu stranicu te se klikom na submit ispisuju(echo) svi rezultati(ostavio sam zakomentarisan heades(Location...)
+f) Pogledati folder POSTMANScreenshot. Testirao sam za par slucajeva: kad je string prazan, kad se unese tacno jedno korisnicko ime, kad se unese slovo, ili kad se unese neki slog.

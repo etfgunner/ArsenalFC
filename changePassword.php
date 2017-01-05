@@ -9,6 +9,7 @@ if(!file_exists('users/'.$_SESSION['username'].'.xml')){
 if(isset($_POST['change'])){
 	$username=$_POST['username'];
 	$new=md5($_POST['c_password']);
+	/*
 	if(file_exists('users/' . $username . '.xml')){
 			$xml= new SimpleXMLElement('<user></user>');
 			$xml->addChild('username', $username);
@@ -16,7 +17,15 @@ if(isset($_POST['change'])){
 			$xml->asXML('users/'.$username.'.xml');
 			header('Location:LoginAdministrator.php');
 			die;
-	}
+	}*/
+	
+	$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+		$upit = $dbh->prepare("UPDATE login SET password=? WHERE username=?");
+		$upit->bindValue(1, $new, PDO::PARAM_STR);
+		$upit->bindValue(2, $username, PDO::PARAM_STR);
+		$upit->execute();
+		header('Location:LoginAdministrator.php');
+			die;
 	$error=true;
 }
 ?>
