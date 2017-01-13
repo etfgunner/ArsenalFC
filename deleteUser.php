@@ -8,24 +8,11 @@ if(!file_exists('users/'.$_SESSION['username'].'.xml')){
 }
 if(isset($_POST['change'])){
 	$username=$_POST['username'];
-	/*
 	if(file_exists('users/' . $username . '.xml')){
 			unlink('users/' . $username . '.xml');
 			header('Location:LoginAdministrator.php');
 			die;
-	}*/
-	//idemo bazno obrisati
-	$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
-		$upit = $dbh->prepare("DELETE  FROM login WHERE username=?");
-		$upit->bindValue(1, $username, PDO::PARAM_STR);
-		$upit->execute();
-		header('Location:LoginAdministrator.php');
-					die;
-		/*
-		foreach ($upit->fetch() as $row) {
-					header('Location:index.php');
-					die;
-		}*/
+	}
 	$error=true;
 }
 ?>

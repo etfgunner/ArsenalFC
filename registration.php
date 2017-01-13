@@ -46,49 +46,21 @@ $passError='';
 		$emailError = 'E-mail treba biti u formatu ime@provajder.domena';
 		} 
 if($bezGreske && $nameError=='' && $firstNameError=='' && $lastNameError=='' && $passEqual=='' && $passError=='' && $emailError==''){
-	$dbh= new PDO("mysql:dbname=spirala4;host=localhost;charset=utf8", "milan", "Prazina1");
+	
+	//users folder
+	$xml1= new SimpleXMLElement('<user></user>');
+	$xml1->addChild('username',$username);
+	$xml1->addChild('password',md5($password));
+	$xml1->asXML('users/'.$username.'.xml');
 	//registration folder
-	/*$xml= new SimpleXMLElement('<user></user>');
+	$xml= new SimpleXMLElement('<user></user>');
 	$xml->addChild('first_name',$first_name);
 	$xml->addChild('last_name', $last_name);
-	$xml->addChild('email',$email);
+	$xml->addChild('e-mail',$email);
 	$xml->addChild('birthday', $birthday);
 	$xml->addChild('username',$username);
 	$xml->addChild('password', md5($password));
 	$xml->asXML('registration/'.$username.'.xml');
-	*/
-	//u bazu registrovane
-	$stmt1 = $dbh->prepare("INSERT INTO registracija (username, ime, prezime, email, datum_rodjenja) VALUES (:username, :ime, :prezime, :email, :datum_rodjenja)");
-	$stmt1->bindParam(':username', $user);
-	$stmt1->bindParam(':ime', $ime1);
-	$stmt1->bindParam(':prezime', $prez1);
-	$stmt1->bindParam(':email', $email1);
-	$stmt1->bindParam(':datum_rodjenja', $rodj);
-	
-	// insert one row
-	$user = $username;
-	$ime1=$first_name;
-	$prez1=$last_name;
-	$email1=$email;
-	$rodj=$birthday;
-	
-	$stmt1->execute();
-	
-	//users folder
-	/*$xml1= new SimpleXMLElement('<user></user>');
-	$xml1->addChild('username',$username);
-	$xml1->addChild('password',md5($password));
-	$xml1->asXML('users/'.$username.'.xml');
-	*/
-	//u bazu korisnike  
-	$stmt = $dbh->prepare("INSERT INTO login (username, password) VALUES (:name, :value)");
-	$stmt->bindParam(':name', $name);
-	$stmt->bindParam(':value', $value);
-
-	// insert one row
-	$name = $username;
-	$value = md5($password);
-	$stmt->execute();
 	header('Location:login.php');
 	die;
 }
@@ -139,7 +111,7 @@ if($bezGreske && $nameError=='' && $firstNameError=='' && $lastNameError=='' && 
 		    </li>
 		    <li>
 		    	<label>Date of birth:</label>
-		    	<input type="date" name="birthday" id="birthday" required>
+		    	<input type="date" name="birthday" id="birthday" onkeyup="validationBrirthday()" required>
 		    </li>
 			<li>
 		    	<label>Username:</label>
